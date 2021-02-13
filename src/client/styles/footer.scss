@@ -1,4 +1,21 @@
-$primary-color:rgb(104, 177, 116);
+$primary-color:rgb(97, 88, 88);
+$font-size:24px;
+$font-color:rgb(240, 240, 240);
+$font-family:'Segoe UI',
+Tahoma,
+Geneva,
+Verdana,
+sans-serif;
 .footer {
+    min-height: 25px;
+    width: 100%;
     background-color: $primary-color;
+    color: $font-color;
+    font-size: $font-size;
+    display: flex;
+    flex-direction: column;
+    .footer-content {
+        margin: 0px auto;
+        font-family: $font-family;
+    }
 }

@@ -1,5 +1,22 @@
-header {
+$font-family:'Segoe UI',
+Tahoma,
+Geneva,
+Verdana,
+sans-serif;
+$primary-color:rgb(97, 88, 88);
+$font-size:24px;
+$font-color:rgb(240, 240, 240);
+.nav {
     display: flex;
     justify-content: space-between;
     padding: 10px 40px;
+    font-family: $font-family;
+    font-size: $font-size;
+    background-color: $primary-color;
+    .logo {
+        color: $font-color;
+    }
+    .navigation {
+        color: $font-color;
+    }
 }
