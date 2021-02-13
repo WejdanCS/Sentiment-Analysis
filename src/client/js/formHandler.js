@@ -4,7 +4,7 @@ function handleSubmit(event) {
     // check what text was put into the form field
     let formText = document.getElementById('articleUrl').value
     console.log(formText);
-    // Client.checkForUrl(formText)
+    Client.checkArticleUrl(formText)
 
     // console.log("::: Form Submitted :::")
     // fetch('http://localhost:8081/test')

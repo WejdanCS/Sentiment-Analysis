@@ -1,15 +1,13 @@
-function checkArticleUrl(inputText) {
-    console.log("::: Running checkForName :::", inputText);
-    let names = [
-        "Picard",
-        "Janeway",
-        "Kirk",
-        "Archer",
-        "Georgiou"
-    ]
+var validUrl = require('valid-url');
 
-    if (names.includes(inputText)) {
-        alert("Welcome, Captain!")
+// check if url is valid url or not 
+function checkArticleUrl(inputText) {
+    // console.log("::: Running Url Checker :::", inputText);
+    if (validUrl.isUri(inputText)) {
+        console.log('Looks like an URI');
+
+    } else {
+        alert("please enter valid url")
     }
 }
 
