@@ -1,17 +1,48 @@
 function handleSubmit(event) {
     event.preventDefault()
+        // check what text was put into the form field
+    let articleUrl = document.getElementById('articleUrl').value;
+    // return true if url is valid
+    var isValid = Client.checkArticleUrl(articleUrl);
+    const postArticleUrl = async(url = '', data = {}) => {
+        console.log(url);
+        console.log(data)
+        const result = await fetch(url, {
+            method: 'POST',
+            cache: "no-cache",
+            mode: "cors",
+            credentials: 'same-origin',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+        });
+        try {
+            const data = await result.json();
+            console.log(data)
+            return data;
+        } catch (error) {
+            console.log(`ERROR:${error.message}`);
+        }
+    }
 
-    // check what text was put into the form field
-    let formText = document.getElementById('articleUrl').value
-    console.log(formText);
-    Client.checkArticleUrl(formText)
+    console.log(isValid)
+    if (isValid) {
+        console.log({ articleUrl });
+        postArticleUrl("http://localhost:8081/PostArticleUrl", {
+            articleUrl
+        }).then(function(data) {
+            document.getElementById("scoreTag").innerHTML = `Score Tag: ${data.score_tag}`;
+            document.getElementById("agreement").innerHTML = `Agreement: ${data.agreement}`;
+            document.getElementById("subjectivity").innerHTML = `Subjectivity: ${data.subjectivity}`;
+            document.getElementById("confidence").innerHTML = `Confidence: ${data.confidence}`;
+            document.getElementById("irony").innerHTML = `Irony: ${data.irony}`;
 
-    // console.log("::: Form Submitted :::")
-    // fetch('http://localhost:8081/test')
-    //     .then(res => res.json())
-    //     .then(function(res) {
-    //         document.getElementById('results').innerHTML = res.message
-    //     })
+
+        });
+    } else {
+        alert("please enter valid url")
+
+    }
 }
+
 
 export { handleSubmit }
