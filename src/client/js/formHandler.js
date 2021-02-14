@@ -5,8 +5,7 @@ function handleSubmit(event) {
     // return true if url is valid
     var isValid = Client.checkArticleUrl(articleUrl);
     const postArticleUrl = async(url = '', data = {}) => {
-        console.log(url);
-        console.log(data)
+
         const result = await fetch(url, {
             method: 'POST',
             cache: "no-cache",
@@ -17,16 +16,14 @@ function handleSubmit(event) {
         });
         try {
             const data = await result.json();
-            console.log(data)
             return data;
         } catch (error) {
             console.log(`ERROR:${error.message}`);
+            document.getElementById("results").innerHTML = error.message;
         }
     }
 
-    console.log(isValid)
     if (isValid) {
-        console.log({ articleUrl });
         postArticleUrl("http://localhost:8081/PostArticleUrl", {
             articleUrl
         }).then(function(data) {

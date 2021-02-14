@@ -7,10 +7,6 @@ import './styles/footer.scss'
 import './styles/resets.scss'
 import './styles/form.scss'
 
-// console.log(checkArticleUrl);
-
-// alert("I EXIST")
-// console.log("CHANGE!!");
 export {
     checkArticleUrl,
     handleSubmit,
