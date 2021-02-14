@@ -1,4 +1,3 @@
-var path = require('path')
 const express = require('express')
 const cors = require("cors");
 const bodyParser = require("body-parser")
@@ -13,53 +12,30 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.use(express.static('dist'))
-    // console.log(__dirname)
-
-// app.get('/', function(req, res) {
-//     // res.sendFile('dist/index.html')
-//     res.sendFile(path.resolve('src/client/views/index.html'))
-// })
 
 // designates what port the app will listen to for incoming requests
 app.listen(8081, function() {
     console.log('Example app listening on port 8081!')
 })
 
-app.get('/test', function(req, res) {
-    res.send(mockAPIResponse)
-})
-
+// base url for Meaning Cloud API
 var baseUrl = "https://api.meaningcloud.com/sentiment-2.1";
-// var articleUrl = "https://www.bbc.com/news/world-us-canada-56035306";
-// var getSematic = async(req, res) => {
-//     console.log(`response: ${mockAPIResponse.apiKey}`)
-//     var result = await app.get(baseUrl + mockAPIResponse.apiKey + "&of=json&txt=Main" + "lang=eng");
-//     console.log(baseUrl + mockAPIResponse.apiKey + "&of=json&url=" + articleUrl + "&" + "lang=en");
-
-// }
 
 app.post('/PostArticleUrl', async function(req, res) {
-        var articleUrl = req.body.articleUrl;
-        console.log(req.body.articleUrl);
-        console.log(`${baseUrl}?key=${mockAPIResponse.apiKey}&of=json&url=${articleUrl}&lang=en`);
-        const result = await fetch(`${baseUrl}?key=${mockAPIResponse.apiKey}&of=json&url=${articleUrl}&lang=en`);
-        try {
-            // console.log(result.json())
-            data = await result.json();
-            const sentimentRestult = {
-                    score_tag: data.score_tag,
-                    agreement: data.agreement,
-                    subjectivity: data.subjectivity,
-                    confidence: data.confidence,
-                    irony: data.irony,
-                }
-                // console.log("data")
-            console.log(sentimentRestult)
-            res.json(sentimentRestult);
-
-        } catch (error) {
-            console.log(`Error:${error.message}`);
-            res.send(error.message);
+    var articleUrl = req.body.articleUrl;
+    const result = await fetch(`${baseUrl}?key=${mockAPIResponse.apiKey}&of=json&url=${articleUrl}&lang=en`);
+    try {
+        data = await result.json();
+        const sentimentRestult = {
+            score_tag: data.score_tag,
+            agreement: data.agreement,
+            subjectivity: data.subjectivity,
+            confidence: data.confidence,
+            irony: data.irony,
         }
-    })
-    // app.post('/PostArticleUrl',)
+        res.json(sentimentRestult);
+
+    } catch (error) {
+        res.send(error.message);
+    }
+})
