@@ -3,20 +3,14 @@ var validUrl = require('valid-url');
 const postArticleUrl = async(url = '', data = {}) => {
         console.log(url);
         console.log(data)
-        const result =
-            //  await fetch(url, {
-            //     method: 'POST',
-            //     body: JSON.stringify(data),
-            // });
-            await fetch(url, {
-                method: 'POST',
-                // mode: 'cors',
-                cache: "no-cache",
-                mode: "cors", //
-                credentials: 'same-origin',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
-            });
+        const result = await fetch(url, {
+            method: 'POST',
+            cache: "no-cache",
+            mode: "cors",
+            credentials: 'same-origin',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+        });
         try {
             const data = await result.json();
             console.log(data)
@@ -37,11 +31,21 @@ function checkArticleUrl(articleUrl) {
         }).then(function(data) {
             console.log("data");
             console.log(data);
+            /*
+                 <div id="scoreTag"></div>
+                <div id="agreement"></div>
+                <div id="subjectivity"></div>
+                <div id="confidence"></div>
+                <div id="irony"></div>
+            */
+            document.getElementById("scoreTag").innerHTML = `Score Tag: ${data.score_tag}`;
+            document.getElementById("agreement").innerHTML = `Agreement: ${data.agreement}`;
+            document.getElementById("subjectivity").innerHTML = `Subjectivity: ${data.subjectivity}`;
+            document.getElementById("confidence").innerHTML = `Confidence: ${data.confidence}`;
+            document.getElementById("irony").innerHTML = `Irony: ${data.irony}`;
+
+
         });
-        // console.log("data:");
-        // console.log(data);
-
-
     } else {
         alert("please enter valid url")
     }
