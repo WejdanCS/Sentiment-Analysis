@@ -38,7 +38,7 @@ var baseUrl = "https://api.meaningcloud.com/sentiment-2.1";
 
 // }
 
-app.post('/', async function(req, res) {
+app.post('/PostArticleUrl', async function(req, res) {
         var articleUrl = req.body.articleUrl;
         console.log(req.body.articleUrl);
         console.log(`${baseUrl}?key=${mockAPIResponse.apiKey}&of=json&url=${articleUrl}&lang=en`);
@@ -46,17 +46,16 @@ app.post('/', async function(req, res) {
         try {
             // console.log(result.json())
             data = await result.json();
-            console.log("data")
-            console.log(data)
-                /**
-                 * 
-                 *"score_tag": "P",
-                 "agreement": "DISAGREEMENT",
-                 "subjectivity": "SUBJECTIVE",
-                 "confidence": "83",
-                 "irony": "NONIRONIC",
-                 */
-            res.json(data);
+            const sentimentRestult = {
+                    score_tag: data.score_tag,
+                    agreement: data.agreement,
+                    subjectivity: data.subjectivity,
+                    confidence: data.confidence,
+                    irony: data.irony,
+                }
+                // console.log("data")
+            console.log(sentimentRestult)
+            res.json(sentimentRestult);
 
         } catch (error) {
             console.log(`Error:${error.message}`);
